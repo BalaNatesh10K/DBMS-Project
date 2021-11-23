@@ -19,7 +19,7 @@ if (empty($error)) {
     $sql = "select * from staff where id='$fid' and password='$password'";
     $row = mysqli_query($db, $sql);
     $result = mysqli_fetch_assoc($row);
-    if ($result["fid"] == $fid && $result["password"] == $password) {
+    if ($result["id"] == $fid && $result["password"] == $password) {
         $_SESSION["username"] = $result['name'];
         $_SESSION['fid'] = $result['id'];
 
