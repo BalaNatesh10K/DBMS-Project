@@ -26,7 +26,7 @@ if (empty($error)) {
         echo '<script>alert("Success!")</script>';
        // header('location: dash.php');
     } else {
-        header('Location:index.php');
+        header('Location:index.html');
         echo '<script>alert("The username or password are incorrect!")</script>';
     }
 }
