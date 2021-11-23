@@ -3,15 +3,13 @@
 
 <head>
     <link rel="stylesheet" href="style.css">
-    <title>Sign Up</title>
+    <title>Sign In</title>
 </head>
 
 <body>
     <img src="logo.png" alt="Logo" width="150" height="150">
     <center>
-        <h1>Department of Information Technology, MIT</h1> <br><br>
-
-        <img src="scroll-bar.png" alt="scroll down" width="50" height="50">
+        <h1>Department of Information Technology, MIT</h1>
     </center>
     <div class="wrapper fadeInDown">
         <div id="formContent">
@@ -19,13 +17,11 @@
             <h2 class="active"> Sign In </h2>
 
             <!-- Login Form -->
-            <form action="register.php" method="POST">
-                <input type="text" id="name" class="fadeIn second" name="name" placeholder="Name" required>
-                <input type="number" id="fid" class="fadeIn second" name="fid" placeholder="Faculty ID" required>
+            <form action="process.php" method="POST">
+                <input type="text" id="fid" class="fadeIn second" name="fid" placeholder="Faculty ID" required>
                 <input type="password" id="password" class="fadeIn third" name="password" placeholder="password"
                     required>
-                <input type="email" id="email" class="fadeIn third" name="email" placeholder="email" required>
-                <input type="submit" class="fadeIn fourth" value="Sign UP">
+                <input type="submit" class="fadeIn fourth" value="Sign In">
             </form>
 
         </div>
