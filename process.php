@@ -23,7 +23,7 @@ if (empty($error)) {
         $_SESSION["username"] = $result['name'];
         $_SESSION['fid'] = $result['id'];
 
-        header('location: dash.html');
+        header('location: dash.php');
     } else {
         header('Location:index.html');
         echo '<script>alert("The username or password are incorrect!")</script>';
