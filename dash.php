@@ -1,5 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+.button {
+  border-radius: 4px;
+  background-color: #39ace7;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+</style>
 <?php
  session_start();
  if(isset($_SESSION['username']))
@@ -25,18 +65,18 @@
     </ul>
     <center><h1>MIT Campus</h1></center>
     <div class="wrapper fadeInDown">
-        <div id="formContent">
+        <div id="formContent" style="height: 515px;">
             <!-- Tabs Titles -->
             <br><img src="https://logodix.com/logo/1070633.png" alt="Logo" width="70" height="70"><br>
-            <h2 class="active"> Welcome <?php echo $_SESSION['username'];?>  </h2>
+            <h2 class="active"> Welcome <?php echo $_SESSION['username'];?></h2>
             <!-- Login Form -->
             <form action="" method="POST">
-            <input type="button" class="fadeIn fourth" value="    Search by hardware   ">
-              <input type="button" class="fadeIn fourth" value="    Search by software   ">
-              <input type="button" class="fadeIn fourth" value="    Search by equipment   ">
-              <input type="button" class="fadeIn fourth" value="Search by serial number">
+            <button class="button"> <span>Search by Hardware</span></button>
+              <button class="button"><span>Search by Software</span></button>
+              <button class="button"><span>Search by Equipment</span></button>
+              <button class="button"> <span>Search by Serial Number</span></button><br>
             </form>
-
+        <a href="logout.php">Log Out</a>
         </div>
     </div>
 </body>
