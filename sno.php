@@ -7,7 +7,7 @@
         require_once "config.php";
         $serialNo=$_POST['serial'];
         $sql="SELECT serial_sno,brand_name as name,processor,ram,lab_name,storage FROM comp_det2 a inner join comp_det b on a.type_id=b.type_id WHERE serial_sno='$serialNo';";
-        $result=mysqli_query($conn,$sql);
+        $result=mysqli_query($db,$sql);
 
     }    
 ?>
