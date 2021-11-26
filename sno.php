@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
-<?php 
-    
-    $arr=[];
-    if(isset($_POST['insert'])){
-        require_once "config.php";
-        $serialNo=$_POST['serial'];
-        $sql="SELECT serial_sno,brand_name as name,processor,ram,lab_name,storage FROM comp_det2 a inner join comp_det b on a.type_id=b.type_id WHERE serial_sno='$serialNo';";
-        $result=mysqli_query($db,$sql);
-       
-    }    
+<?php
+
+$arr = [];
+if (isset($_POST['insert'])) {
+    require_once "config.php";
+    $serialNo = $_POST['serial'];
+    $sql = "SELECT serial_sno,brand_name as name,processor,ram,lab_name,storage FROM comp_det2 a inner join comp_det b on a.type_id=b.type_id WHERE serial_sno='$serialNo';";
+    $result = mysqli_query($db, $sql);
+}
 ?>
+
 <head>
     <title>Table with database</title>
     <link rel="stylesheet" href="disp.css">
@@ -24,9 +24,10 @@
             padding: 10px;
             font-size: 17px;
             border: 1px solid grey;
+            border-radius: 5px;
             width: 20%;
             background: #f1f1f1;
-            float:none;
+            float: none;
         }
 
         /* Style the submit button */
@@ -36,12 +37,12 @@
             background: black;
             color: white;
             font-size: 17px;
-              border: 1px ;
+            border: 1px;
             border-radius: 5px;
             border-left: none;
             /* Prevent double borders */
             cursor: pointer;
-            float:none;
+            float: none;
         }
 
         form.example button:hover {
@@ -74,12 +75,13 @@
 
         <!-- The form -->
         <form class="example" action="" method="post">
-            <input type="text" placeholder="Serial Number" name="serial"  required>
+            <input type="text" placeholder="Serial Number" name="serial" required>
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
+            <button onclick="window.location.href='dash.php'">Back</button>
         </form><br>
-        <?php if(isset($_POST['insert'])){
-              if(mysqli_num_rows($result)>0){
-              echo"<table style='width:80%'>
+        <?php if (isset($_POST['insert'])) {
+            if (mysqli_num_rows($result) > 0) {
+                echo "<table style='width:80%'>
               <tr>
                   <th>SerialNo</th>
                   <th>Brand Name</th>
@@ -88,17 +90,17 @@
                   <th>Storage</th>
                   <th>Lab Name</th>
               </tr>";
-              while($row=mysqli_fetch_assoc($result)){
-                
-                echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["name"] . "</td><td>"
-                  . $row["processor"] . "</td><td>" . $row['ram'] . "</td><td>" . $row["storage"] . "</td><td>" . $row['lab_name'] . "</td></tr>";
-              }
-              echo "</table>";
-            }else{
+                while ($row = mysqli_fetch_assoc($result)) {
+
+                    echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["name"] . "</td><td>"
+                        . $row["processor"] . "</td><td>" . $row['ram'] . "</td><td>" . $row["storage"] . "</td><td>" . $row['lab_name'] . "</td></tr>";
+                }
+                echo "</table>";
+            } else {
                 echo "<div style='font-size:18px'>No such Serial Number!!</div>";
             }
         }
-            ?>
+        ?>
     </center>
 </body>
 
