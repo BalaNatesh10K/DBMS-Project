@@ -8,7 +8,7 @@
         $serialNo=$_POST['serial'];
         $sql="SELECT serial_sno,brand_name as name,processor,ram,lab_name,storage FROM comp_det2 a inner join comp_det b on a.type_id=b.type_id WHERE serial_sno='$serialNo';";
         $result=mysqli_query($db,$sql);
-
+       
     }    
 ?>
 <head>
@@ -74,11 +74,11 @@
 
         <!-- The form -->
         <form class="example" action="" method="post">
-            <input type="text" placeholder="Serial Number" name="serial" max="329" required>
+            <input type="text" placeholder="Serial Number" name="serial"  required>
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
         </form><br>
         <?php if(isset($_POST['insert'])){
-              if($serialNo<330&&is_numeric($serialNo)&&$serialNo>0){
+              if(mysqli_num_rows($result)>0){
               echo"<table style='width:80%'>
               <tr>
                   <th>SerialNo</th>
