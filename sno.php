@@ -24,6 +24,7 @@
             padding: 10px;
             font-size: 17px;
             border: 1px solid grey;
+            border-radius: 5px;
             width: 20%;
             background: #f1f1f1;
             float:none;
@@ -74,7 +75,7 @@
 
         <!-- The form -->
         <form class="example" action="" method="post">
-            <input type="text" placeholder="Serial Number" name="serial" required>
+            <input type="text" placeholder="Serial Number" name="serial" maxlength="329" required>
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
         </form><br>
         <?php if(isset($_POST['insert'])){
