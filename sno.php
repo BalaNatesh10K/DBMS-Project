@@ -64,13 +64,12 @@ if (isset($_POST['insert'])) {
         </li>
         <li style="flex-grow: 4;">
             <center>
-                <h1>Department of Information Technology</h1>
+                <h1>Department of Information Technology<br>MIT Campus</h1>
         </li>
         <li><img src="logo.png" alt="Logo" width="100" height="100">
         </li>
     </ul>
     <center>
-        <h1>MIT Campus</h1>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
         <!-- The form -->
@@ -95,7 +94,13 @@ if (isset($_POST['insert'])) {
                     echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["name"] . "</td><td>"
                         . $row["processor"] . "</td><td>" . $row['ram'] . "</td><td>" . $row["storage"] . "</td><td>" . $row['lab_name'] . "</td></tr>";
                 }
-                echo "</table>";
+                echo "</table><br>";
+                echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
+              color: white;
+              font-size: 17px;
+                border: 1px ;
+              border-radius: 5px;
+              border-left: none;'>Print</button></center>";
             } else {
                 echo "<div style='font-size:18px'>No such Serial Number!!</div>";
             }
