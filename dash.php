@@ -74,7 +74,7 @@
             <button class="button"> <span>Search by Hardware</span></button>
               <button class="button"><span>Search by Software</span></button>
               <button class="button"><span>Search by Equipment</span></button>
-              <button class="button"> <span>Search by Serial Number</span></button><br>
+              <button class="button" onclick="window.location.href='sno.php'"> <span>Search by Serial Number</span></button><br>
             </form>
         <a href="logout.php">Log Out</a>
         </div>
