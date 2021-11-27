@@ -1,3 +1,5 @@
+
+   
 <!DOCTYPE html>
 <html>
 
@@ -120,7 +122,9 @@
             $result_device = mysqli_query($db, $sql_device);
             $sql_comp = "SELECT * FROM comp_det WHERE lab_name='$lab_name';";
             $result_comp = mysqli_query($db, $sql_comp);
-
+            $lab_arr=array("Programming Laboratory-I"=>"prog_lab1","Programming Laboratory-II"=>"prog_lab2","Project Laboratory"=>"project_lab","Hardware Laboratory"=>"hard_lab","Data Analytics Laboratory"=>"da_lab","Sensor Network Laboratory"=>"sn_lab");
+            $sql_soft="SELECT * FROM $lab_arr[$lab_name];";
+            $result_soft=mysqli_query($db,$sql_soft);
             if (mysqli_num_rows($result_comp) > 0) {
                 echo "<table style='width:80%'>
                   <tr>
@@ -144,24 +148,41 @@
                 echo"\n";
                 echo "<br><table style='width:80%'>
               <tr>
+                  <th>Type</th>
                   <th>Device</th>
                   <th>Lab Name</th>
                   <th>Quantity</th>
               </tr>";
                 while ($row = mysqli_fetch_assoc($result_device)) {
-                    echo "<tr><td>" . $row["brand_name"] . "</td><td>" . $row["lab_name"] . "</td><td>"
+                    echo "<tr><td>" . $row["type"] . "</td><td>" . $row["brand_name"] . "</td><td>" . $row["lab_name"] . "</td><td>"
                         . $row["qty"] . "</td></tr>";
                 }
-                echo "</table><br>";
-                echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
-            color: white;
-            font-size: 17px;
-              border: 1px ;
-            border-radius: 5px;
-            border-left: none;'>Print</button></center><br>";
+                echo "</table>";
+            
             } else {
                 echo mysqli_error($db);
             }
+            if (mysqli_num_rows($result_soft) > 0) {
+                echo "<table style='width:80%'>
+                  <tr>
+                      <th>Software</th>
+                      <th>Source</th>
+                  </tr>";
+                while ($row = mysqli_fetch_assoc($result_soft)) {
+
+                    echo "<tr><td>" . $row["name"] . "</td><td>" . $row['source'] . "</td></tr>";
+                }
+                echo "</table><br>";
+            } else {
+                echo mysqli_error($db);
+            }
+            echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
+            color: white;
+            font-size: 17px;
+            border: 1px ;
+            border-radius: 5px;
+            border-left: none;'>Print</button></center><br>";
+
         }
         ?>
     </center>
