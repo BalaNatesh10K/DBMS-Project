@@ -85,13 +85,13 @@
 
 <body>
     <ul style="display: flex; list-style: none;">
-        <li><img src="logo1.png" alt="Logo" width="100" height="100">
+        <li><img src="logo1.png" alt="Logo" width="100" height="100" style="border-radius: 5px;">
         </li>
         <li style="flex-grow: 4;">
             <center>
                 <h1>Department of Information Technology<br>MIT Campus</h1>
         </li>
-        <li><img src="logo.png" alt="Logo" width="100" height="100">
+        <li><img src="logo.png" alt="Logo" width="100" height="100" style="border-radius: 5px;">
         </li>
     </ul>
     <center>
