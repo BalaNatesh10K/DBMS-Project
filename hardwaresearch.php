@@ -107,26 +107,35 @@
         <form class="example" action="" method="post">
         <?php
             if(mysqli_num_rows($result_ram)>0){
+                $i=0;
                 echo "<select name='ram' id='ram'>";
                 echo "<option selected value='none'>Optional</option>";
                 while($row_ram=mysqli_fetch_assoc($result_ram)){
-                    echo "<option value=".$row_ram['ram'].">".$row_ram['ram']."</option>";
+                    $ram_arr[$i]=$row_ram['ram'];
+                    echo "<option value=".$i.">".$row_ram['ram']."</option>";
+                    $i++;
                 }
                 echo "</select> "; 
             }   
             if(mysqli_num_rows($result_processor)>0){
+                $i=0;
                 echo "<select name='processor' id='processor'>";
                 echo "<option selected value='none'>Optional</option>";
                 while($row_processor=mysqli_fetch_assoc($result_processor)){
-                    echo "<option value=".$row_processor['processor'].">".$row_processor['processor']."</option>";
+                    $process_arr[$i]=$row_processor['processor'];
+                    echo "<option value=".$i.">".$row_processor['processor']."</option>";
+                    $i++;
                 }
                 echo "</select> "; 
             }  
             if(mysqli_num_rows($result_storage)>0){
+                $i-0;
                 echo "<select name='storage' id='storage'>";
                 echo "<option selected value='none'>Optional</option>";
                 while($row_storage=mysqli_fetch_assoc($result_storage)){
-                    echo "<option value=".$row_storage['storage'].">".$row_storage['storage']."</option>";
+                    $storage_arr[$i]=$row_storage['storage'];
+                    echo "<option value=".$i.">".$row_storage['storage']."</option>";
+                    $i++;
                 }
                 echo "</select> "; 
             } 
@@ -138,18 +147,18 @@
         if (isset($_POST['insert'])) {
             if($_POST['ram']=='none'){
                 $ram='%%';
-            }else{    
-            $ram='%'.$_POST['ram'].'%';
+            }else{
+            $ram='%'.$ram_arr[$_POST['ram']].'%';
             }
             if($_POST['processor']=='none'){
                 $processor='%%';
             }else{    
-                $processor='%'.$_POST['processor'].'%';
+                $processor='%'.$process_arr[$_POST['processor']].'%';
             }            
             if($_POST['storage']=='none'){
                 $storage='%%';
             }else{    
-                $storage='%'.$_POST['storage'].'%';
+                $storage='%'.$storage_arr[$_POST['storage']].'%';
             }            
             
             $sql="SELECT * FROM comp_det WHERE ram LIKE '$ram' and processor like '$processor' and storage like '$storage';";
@@ -170,11 +179,12 @@
                         . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row["lab_name"] . "</td><td>" . $row['quantity'] . "</td></tr>";
                 }
             } else {
+                echo "NO SUCH SYSTEM!!!!";
                 echo mysqli_error($db);
             }
 
            
-            echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
+            echo "<br><br><center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
             color: white;
             font-size: 17px;
             border: 1px ;
