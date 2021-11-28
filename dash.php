@@ -74,7 +74,7 @@
             
               <button class="button" type="submit" formaction="labsearch.php"><span>Search by Lab</span></button>
               <button class="button" type="submit" formaction="sno.php"> <span>Search by Serial Number</span></button><br>
-            </form>
+            </form><br>
         <a href="logout.php">Log Out</a>
         </div>
     </div>

@@ -109,7 +109,7 @@
             if(mysqli_num_rows($result_ram)>0){
                 $i=0;
                 echo "<select name='ram' id='ram'>";
-                echo "<option selected value='none'>Optional</option>";
+                echo "<option selected value='none'>RAM</option>";
                 while($row_ram=mysqli_fetch_assoc($result_ram)){
                     $ram_arr[$i]=$row_ram['ram'];
                     echo "<option value=".$i.">".$row_ram['ram']."</option>";
@@ -120,7 +120,7 @@
             if(mysqli_num_rows($result_processor)>0){
                 $i=0;
                 echo "<select name='processor' id='processor'>";
-                echo "<option selected value='none'>Optional</option>";
+                echo "<option selected value='none'>Processor</option>";
                 while($row_processor=mysqli_fetch_assoc($result_processor)){
                     $process_arr[$i]=$row_processor['processor'];
                     echo "<option value=".$i.">".$row_processor['processor']."</option>";
@@ -131,7 +131,7 @@
             if(mysqli_num_rows($result_storage)>0){
                 $i-0;
                 echo "<select name='storage' id='storage'>";
-                echo "<option selected value='none'>Optional</option>";
+                echo "<option selected value='none'>Storage</option>";
                 while($row_storage=mysqli_fetch_assoc($result_storage)){
                     $storage_arr[$i]=$row_storage['storage'];
                     echo "<option value=".$i.">".$row_storage['storage']."</option>";
@@ -178,19 +178,22 @@
                     echo "<tr><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>"
                         . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row["lab_name"] . "</td><td>" . $row['quantity'] . "</td></tr>";
                 }
-            } else {
+                echo "</table><br>";
+                echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
+                color: white;
+                font-size: 17px;
+                border: 1px ;
+                border-radius: 5px;
+                border-left: none;'>Print</button></center><br>";
+    
+            } 
+            else {
                 echo "NO SUCH SYSTEM!!!!";
                 echo mysqli_error($db);
             }
 
            
-            echo "<br><br><center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
-            color: white;
-            font-size: 17px;
-            border: 1px ;
-            border-radius: 5px;
-            border-left: none;'>Print</button></center><br>";
-
+           
         }
         ?>
     </center>
