@@ -1,5 +1,3 @@
-
-   
 <!DOCTYPE html>
 <html>
 
@@ -107,6 +105,8 @@
                 <option value="Sensor Network Laboratory">Sensor Network Laboratory</option>
                 <option value="Project Laboratory">Project Laboratory</option>
                 <option value="Data Analytics Laboratory">Data Analytics Laboratory</option>
+                <option value="PG Laboratory">PG Laboratory</option>
+                <option value="Media Research Lab">Media Research Lab</option>
             </select>
 
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
@@ -122,9 +122,9 @@
             $result_device = mysqli_query($db, $sql_device);
             $sql_comp = "SELECT * FROM comp_det WHERE lab_name='$lab_name';";
             $result_comp = mysqli_query($db, $sql_comp);
-            $lab_arr=array("Programming Laboratory-I"=>"prog_lab1","Programming Laboratory-II"=>"prog_lab2","Project Laboratory"=>"project_lab","Hardware Laboratory"=>"hard_lab","Data Analytics Laboratory"=>"da_lab","Sensor Network Laboratory"=>"sn_lab");
-            $sql_soft="SELECT * FROM $lab_arr[$lab_name];";
-            $result_soft=mysqli_query($db,$sql_soft);
+            $lab_arr = array("Programming Laboratory-I" => "prog_lab1", "Programming Laboratory-II" => "prog_lab2", "Project Laboratory" => "project_lab", "Hardware Laboratory" => "hard_lab", "Data Analytics Laboratory" => "da_lab", "Sensor Network Laboratory" => "sn_lab", "PG Laboratory" => "pg_lab", "Media Research Lab" => "mr_lab");
+            $sql_soft = "SELECT * FROM $lab_arr[$lab_name];";
+            $result_soft = mysqli_query($db, $sql_soft);
             if (mysqli_num_rows($result_comp) > 0) {
                 echo "<table style='width:80%'>
                   <tr>
@@ -145,7 +145,7 @@
             }
 
             if (mysqli_num_rows($result_device) > 0) {
-                echo"\n";
+                echo "\n";
                 echo "<br><table style='width:80%'>
               <tr>
                   <th>Type</th>
@@ -158,7 +158,6 @@
                         . $row["qty"] . "</td></tr>";
                 }
                 echo "</table>";
-            
             } else {
                 echo mysqli_error($db);
             }
@@ -182,7 +181,6 @@
             border: 1px ;
             border-radius: 5px;
             border-left: none;'>Print</button></center><br>";
-
         }
         ?>
     </center>
