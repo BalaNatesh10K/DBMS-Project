@@ -55,12 +55,12 @@
 
 <body>
     <ul style="display: flex; list-style: none;">
-    <li><img src="logo1.png" alt="Logo" width="100" height="100" style="border-radius: 5px;">
+    <li><img src="logo1.png" alt="Logo" width="100" height="100">
     </li>
     <li style="flex-grow: 4;"><center>
         <h1>Department of Information Technology<br>MIT Campus</h1>
     </li>
-    <li><img src="logo.png" alt="Logo" width="100" height="100" style="border-radius: 5px;">
+    <li><img src="logo.png" alt="Logo" width="100" height="100">
     </li>
     </ul>
     <div class="wrapper fadeInDown">
@@ -70,7 +70,7 @@
             <h2 class="active"> Welcome <?php echo $_SESSION['username'];?></h2>
             <!-- Login Form -->
             <form action="" method="POST">
-            <button class="button"  type="submit" formaction="hardwaresearch.php"> <span>Search by Hardware</span></button>
+            <button class="button" type="submit" formaction="hardwaresearch.php"><span>Search by Hardware</span></button>
             
               <button class="button" type="submit" formaction="labsearch.php"><span>Search by Lab</span></button>
               <button class="button" type="submit" formaction="sno.php"> <span>Search by Serial Number</span></button><br>

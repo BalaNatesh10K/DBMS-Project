@@ -145,7 +145,6 @@
                 $processor='%%';
             }else{    
                 $processor='%'.$_POST['processor'].'%';
-                echo $processor;
             }            
             if($_POST['storage']=='none'){
                 $storage='%%';
