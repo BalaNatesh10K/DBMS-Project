@@ -70,10 +70,10 @@
             <h2 class="active"> Welcome <?php echo $_SESSION['username'];?></h2>
             <!-- Login Form -->
             <form action="" method="POST">
-            <button class="button" type="submit" formaction="hardwaresearch.php"><span>Search by Hardware</span></button>
+            <button class="button" type="submit" formaction="search.php"><span>Search</span></button>
             
-              <button class="button" type="submit" formaction="labsearch.php"><span>Search by Lab</span></button>
-              <button class="button" type="submit" formaction="sno.php"> <span>Search by Serial Number</span></button><br>
+              <button class="button" type="submit" formaction="labsearch.php"><span>Update</button>
+              <button class="button" type="submit" formaction="delete.php"> <span>Delete</span></button><br>
             </form><br>
         <a href="logout.php">Log Out</a>
         </div>

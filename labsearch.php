@@ -110,7 +110,7 @@
             </select>
 
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
-            <button formaction="dash.php">Back</button>
+            <button formaction="search.php">Back</button>
         </form><br>
         <?php
 
