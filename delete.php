@@ -1,16 +1,5 @@
 <!DOCTYPE html>
 <html>
-<?php
-
-$arr = [];
-if (isset($_POST['insert'])) {
-    require_once "config.php";
-    $serialNo = $_POST['serial'];
-    $sql = "SELECT * from comp_det2 where serial_sno='$serialNo';";
-    $result = mysqli_query($db, $sql);
-}
-?>
-
 <head>
     <title>Table with database</title>
     <link rel="stylesheet" href="disp.css">
@@ -78,28 +67,20 @@ if (isset($_POST['insert'])) {
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
             <button onclick="window.location.href='dash.php'">Back</button>
         </form><br>
-        <?php if (isset($_POST['insert'])) {
-            if (mysqli_num_rows($result) > 0) {
-                $sql_delete="DELETE FROM comp_det2 where serial_sno='$serialNo';";
-                $result_delete=mysqli_query($db,$sql_delete);
-                $row=mysqli_fetch_assoc($result);
-                if(mysqli_affected_rows($db)>0)
-                 { $type=$row['type_id'];
-
-                  $update="UPDATE comp_det SET quantity=quantity-1 where type_id='$type';";
-                  $update_result=mysqli_query($db,$update);
-                  if(mysqli_affected_rows($db)>0){
-                      echo "<div style='font-size:18px'>Record Deleted</div>";  
-                  }else{
-                      echo mysqli_error($db);
-                  }
-                }
-            }
-             else {
-                echo "<div style='font-size:18px'>No such Serial Number!!</div>";
-            }
-        }
-        ?>
+        <?php
+if (isset($_POST['insert'])) {
+    require_once "config.php";
+    $serialNo = $_POST['serial'];
+    $sql_delete="DELETE FROM comp where serial_sno='$serialNo';";
+    $result_delete=mysqli_query($db,$sql_delete);
+    
+      if(mysqli_affected_rows($db)>0){
+          echo "<div style='font-size:18px'>Record Deleted</div>";  
+      } else {
+            echo "<div style='font-size:18px'>No such Serial Number!!</div>";
+    }
+}
+?>
     </center>
 </body>
 </html>

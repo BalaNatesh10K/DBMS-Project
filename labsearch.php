@@ -108,61 +108,59 @@
                 <option value="PG Laboratory">PG Laboratory</option>
                 <option value="Media Research Lab">Media Research Lab</option>
             </select>
-
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
             <button formaction="search.php">Back</button>
         </form><br>
         <?php
-
         $arr = [];
         if (isset($_POST['insert'])) {
             require_once "config.php";
             $lab_name = $_POST['lab'];
             $sql_device = "SELECT * FROM equipment WHERE lab_name='$lab_name';";
             $result_device = mysqli_query($db, $sql_device);
-            $sql_comp = "SELECT * FROM comp_det WHERE lab_name='$lab_name';";
+            $sql_comp = "SELECT * FROM comp2 WHERE lab_name='$lab_name';";
             $result_comp = mysqli_query($db, $sql_comp);
             $lab_arr = array("Programming Laboratory-I" => "prog_lab1", "Programming Laboratory-II" => "prog_lab2", "Project Laboratory" => "project_lab", "Hardware Laboratory" => "hard_lab", "Data Analytics Laboratory" => "da_lab", "Sensor Network Laboratory" => "sn_lab", "PG Laboratory" => "pg_lab", "Media Research Lab" => "mr_lab");
             $sql_soft = "SELECT * FROM $lab_arr[$lab_name];";
             $result_soft = mysqli_query($db, $sql_soft);
             if (mysqli_num_rows($result_comp) > 0) {
-                echo "<table style='width:80%'>
+                echo "<center style='font-size:25px;font-weight:bold;'>".$lab_name."</center><br>
+                <table style='width:80%'>
                   <tr>
                       <th>Brand Name</th>
                       <th>Processor</th>
                       <th>Ram</th>
                       <th>Storage</th>
-                      <th>Lab Name</th>
                       <th>Quantity</th> 
                   </tr>";
                 while ($row = mysqli_fetch_assoc($result_comp)) {
 
                     echo "<tr><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>"
-                        . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row["lab_name"] . "</td><td>" . $row['quantity'] . "</td></tr>";
+                        . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row['quantity'] . "</td></tr>";
                 }
+                echo "</table>";
             } else {
                 echo mysqli_error($db);
             }
 
             if (mysqli_num_rows($result_device) > 0) {
-                echo "\n";
+                
                 echo "<br><table style='width:80%'>
               <tr>
                   <th>Type</th>
                   <th>Device</th>
-                  <th>Lab Name</th>
                   <th>Quantity</th>
               </tr>";
                 while ($row = mysqli_fetch_assoc($result_device)) {
-                    echo "<tr><td>" . $row["type"] . "</td><td>" . $row["brand_name"] . "</td><td>" . $row["lab_name"] . "</td><td>"
-                        . $row["qty"] . "</td></tr>";
+                    echo "<tr><td>" . $row["type"] . "</td><td>" . $row["brand_name"] . "</td><td>" . 
+                         $row["qty"] . "</td></tr>";
                 }
                 echo "</table>";
             } else {
                 echo mysqli_error($db);
             }
             if (mysqli_num_rows($result_soft) > 0) {
-                echo "<table style='width:80%'>
+                echo "<br><table style='width:80%'>
                   <tr>
                       <th>Software</th>
                       <th>Source</th>

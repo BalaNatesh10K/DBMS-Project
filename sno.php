@@ -6,7 +6,7 @@ $arr = [];
 if (isset($_POST['insert'])) {
     require_once "config.php";
     $serialNo = $_POST['serial'];
-    $sql = "SELECT serial_sno,brand_name as name,processor,ram,lab_name,storage FROM comp_det2 a inner join comp_det b on a.type_id=b.type_id WHERE serial_sno='$serialNo';";
+    $sql = "SELECT serial_sno,brand_name as name,processor,ram,lab_name,storage,graphics_card as gpu FROM comp WHERE serial_sno='$serialNo';";
     $result = mysqli_query($db, $sql);
 }
 ?>
@@ -80,11 +80,12 @@ if (isset($_POST['insert'])) {
         </form><br>
         <?php if (isset($_POST['insert'])) {
             if (mysqli_num_rows($result) > 0) {
-                echo "<table style='width:80%'>
+                echo "<table style='width:100%'>
               <tr>
                   <th>SerialNo</th>
                   <th>Brand Name</th>
                   <th>Processor</th>
+                  <th>Graphics Card</th>
                   <th>Ram</th>
                   <th>Storage</th>
                   <th>Lab Name</th>
@@ -92,7 +93,7 @@ if (isset($_POST['insert'])) {
                 while ($row = mysqli_fetch_assoc($result)) {
 
                     echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["name"] . "</td><td>"
-                        . $row["processor"] . "</td><td>" . $row['ram'] . "</td><td>" . $row["storage"] . "</td><td>" . $row['lab_name'] . "</td></tr>";
+                        . $row["processor"] . "</td><td>" . $row['gpu'] . "</td><td>" . $row['ram'] . "</td><td>" . $row["storage"] . "</td><td>" . $row['lab_name'] . "</td></tr>";
                 }
                 echo "</table><br>";
                 echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
