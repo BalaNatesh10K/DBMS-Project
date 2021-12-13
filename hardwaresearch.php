@@ -161,7 +161,7 @@
                 $storage='%'.$storage_arr[$_POST['storage']].'%';
             }            
             
-            $sql="SELECT * FROM comp_det WHERE ram LIKE '$ram' and processor like '$processor' and storage like '$storage';";
+            $sql="SELECT * FROM comp2 WHERE ram LIKE '$ram' and processor like '$processor' and storage like '$storage';";
             $result=mysqli_query($db,$sql);
             if (mysqli_num_rows($result) > 0) {
                 echo "<table style='width:80%'>
