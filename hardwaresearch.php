@@ -2,15 +2,18 @@
 <html>
 <?php
     require_once "config.php";
-    $sql_ram="SELECT distinct(ram) as ram FROM comp_det;";
+    $sql_brand="SELECT distinct(brand_name) as brand from comp;";
+    $sql_ram="SELECT distinct(ram) as ram FROM comp;";
+    $sql_processor="SELECT distinct(processor) as processor FROM comp;";
+    $sql_storage="SELECT distinct(storage) as storage FROM comp;";
+    $result_brand=mysqli_query($db,$sql_brand);
     $result_ram=mysqli_query($db,$sql_ram);
-    $sql_processor="SELECT distinct(processor) as processor FROM comp_det;";
-    $sql_storage="SELECT distinct(storage) as storage FROM comp_det;";
     $result_processor=mysqli_query($db,$sql_processor);
     $result_storage=mysqli_query($db,$sql_storage);
 ?>
 <head>
     <title>Table with database</title>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="disp.css">
     <style>
         * {
@@ -42,18 +45,15 @@
             cursor: pointer;
             float: none;
         }
-
         form.example button:hover {
             background: black;
         }
-
         /* Clear floats */
         form.example::after {
             content: "";
             clear: both;
             display: table;
         }
-
         select {
             appearance: none;
             outline: 0;
@@ -75,7 +75,6 @@
             background-position-x: 100%;
             background-position-y: 5px;
         }
-
         .select {
             position: relative;
             display: block;
@@ -94,8 +93,8 @@
         <li><img src="logo1.png" alt="Logo" width="100" height="100">
         </li>
         <li style="flex-grow: 4;">
-            <center>
-                <h1>Department of Information Technology<br>MIT Campus</h1>
+        <center>
+            <h1>Department of Information Technology<br>MIT Campus</h1>
         </li>
         <li><img src="logo.png" alt="Logo" width="100" height="100">
         </li>
@@ -106,6 +105,17 @@
         <!-- The form -->
         <form class="example" action="" method="post">
         <?php
+            if(mysqli_num_rows($result_brand)>0){
+                $i=0;
+                echo "<select name='brand' id='brand'>";
+                echo "<option selected value='none'>Brand</option>";
+                while($row_brand=mysqli_fetch_assoc($result_brand)){
+                    $brand_arr[$i]=$row_brand['brand'];
+                    echo "<option value=".$i.">".$row_brand['brand']."</option>";
+                    $i++;
+                }
+                echo "</select> "; 
+            }   
             if(mysqli_num_rows($result_ram)>0){
                 $i=0;
                 echo "<select name='ram' id='ram'>";
@@ -140,8 +150,8 @@
                 echo "</select> "; 
             } 
         ?>
-            <button type="submit" name='insert'><i class="fa fa-search"></i></button>
-            <button formaction="search.php">Back</button>
+        <button type="submit" name='insert'><i class="fa fa-search"></i></button>
+        <button formaction="search.php">Back</button>
         </form><br>
         <?php
         if (isset($_POST['insert'])) {
@@ -160,11 +170,15 @@
             }else{    
                 $storage='%'.$storage_arr[$_POST['storage']].'%';
             }            
-            
-            $sql="SELECT * FROM comp2 WHERE ram LIKE '$ram' and processor like '$processor' and storage like '$storage';";
+            if($_POST['brand']=='none'){
+                $brand='%%';
+            }else{    
+                $brand='%'.$brand_arr[$_POST['brand']].'%';
+            } 
+            $sql="SELECT * FROM comp2 WHERE ram LIKE '$ram' and processor like '$processor' and storage like '$storage' and brand_name like '$brand';";
             $result=mysqli_query($db,$sql);
             if (mysqli_num_rows($result) > 0) {
-                echo "<table style='width:80%'>
+                echo "<table style='width:100%' id='tbl1'>
                   <tr>
                       <th>Brand Name</th>
                       <th>Processor</th>
@@ -179,7 +193,15 @@
                         . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row["lab_name"] . "</td><td>" . $row['quantity'] . "</td></tr>";
                 }
                 echo "</table><br>";
-                echo "<center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
+                echo "<br>
+                <button onclick=\"ExportToExcel1('xlsx')\" style='width: 15%; padding: 10px; background: black;
+                    color: white;
+                    font-size: 17px;
+                    border: 1px ;
+                    border-radius: 5px;
+                    border-left: none;'>Export table to excel</button>
+                    <br><br>
+                    <center><button onclick='window.print()' style='width: 5%; padding: 10px; background: black;
                 color: white;
                 font-size: 17px;
                 border: 1px ;
@@ -197,6 +219,21 @@
         }
         ?>
     </center>
+    <script>
+        function ExportToExcel1(type, fn, dl) {
+            var elt = document.getElementById('tbl1');
+            var wb = XLSX.utils.table_to_book(elt, {
+                sheet: "sheet1"
+            });
+            return dl ?
+                XLSX.write(wb, {
+                    bookType: type,
+                    bookSST: true,
+                    type: 'base64'
+                }) :
+                XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+        }
+    </script>
 </body>
 
 </html>
