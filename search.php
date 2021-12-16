@@ -71,9 +71,9 @@
             <!-- Login Form -->
             <form action="" method="POST">
             <button class="button" type="submit" formaction="hardwaresearch.php"><span>Search by Hardware</span></button>
-            
-              <button class="button" type="submit" formaction="labsearch.php"><span>Search by Lab</span></button>
-              <button class="button" type="submit" formaction="sno.php"> <span>Search by Serial Number</span></button><br>
+            <button class="button" type="submit" formaction="labsearch.php"><span>Search by Lab</span></button>
+            <button class="button" type="submit" formaction="sno.php"> <span>Search by Serial Number</span></button><br>
+            <button class="button" type="submit" formaction="status.php"> <span>Search by Status</span></button><br>
             </form><br>
         <a href="dash.php">Back</a>
         </div>

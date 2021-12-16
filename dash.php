@@ -71,9 +71,9 @@
             <!-- Login Form -->
             <form action="" method="POST">
             <button class="button" type="submit" formaction="search.php"><span>Search</span></button>
-            
-              <button class="button" type="submit" formaction="labsearch.php"><span>Update</button>
-              <button class="button" type="submit" formaction="delete.php"> <span>Delete</span></button><br>
+            <button class="button" type="submit" formaction="insert.php"><span>Insert</span></button>
+            <button class="button" type="submit" formaction="update.php"><span>Update</span></button>
+            <button class="button" type="submit" formaction="delete.php"> <span>Delete</span></button><br>
             </form><br>
         <a href="logout.php">Log Out</a>
         </div>

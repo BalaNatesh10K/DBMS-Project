@@ -17,10 +17,9 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" media='screen' href="disp.css">
-    <link rel="stylesheet" media="print" href="print.css">
+    <link rel="stylesheet" href="disp.css">
     <style>
-         a{
+        a{
             color:black;
             font-weight: bold;
         }
@@ -98,7 +97,7 @@
             border-radius: .25em;
             padding-bottom: 10px;
         }
-        .dataTables_filter, .dataTables_info { display: none; }
+        .dataTables_filter, .dataTables_info { font-weight: bold;font-size:20px }    
     </style>
 </head>
 
@@ -118,100 +117,43 @@
 
         <!-- The form -->
         <form class="example" action="" method="post">
-        <?php
-            if(mysqli_num_rows($result_brand)>0){
-                $i=0;
-                echo "<select name='brand' id='brand'>";
-                echo "<option selected value='none'>Brand</option>";
-                while($row_brand=mysqli_fetch_assoc($result_brand)){
-                    $brand_arr[$i]=$row_brand['brand'];
-                    echo "<option value=".$i.">".$row_brand['brand']."</option>";
-                    $i++;
-                }
-                echo "</select> "; 
-            }   
-            if(mysqli_num_rows($result_ram)>0){
-                $i=0;
-                echo "<select name='ram' id='ram'>";
-                echo "<option selected value='none'>RAM</option>";
-                while($row_ram=mysqli_fetch_assoc($result_ram)){
-                    $ram_arr[$i]=$row_ram['ram'];
-                    echo "<option value=".$i.">".$row_ram['ram']."</option>";
-                    $i++;
-                }
-                echo "</select> "; 
-            }   
-            if(mysqli_num_rows($result_processor)>0){
-                $i=0;
-                echo "<select name='processor' id='processor'>";
-                echo "<option selected value='none'>Processor</option>";
-                while($row_processor=mysqli_fetch_assoc($result_processor)){
-                    $process_arr[$i]=$row_processor['processor'];
-                    echo "<option value=".$i.">".$row_processor['processor']."</option>";
-                    $i++;
-                }
-                echo "</select> "; 
-            }  
-            if(mysqli_num_rows($result_storage)>0){
-                $i-0;
-                echo "<select name='storage' id='storage'>";
-                echo "<option selected value='none'>Storage</option>";
-                while($row_storage=mysqli_fetch_assoc($result_storage)){
-                    $storage_arr[$i]=$row_storage['storage'];
-                    echo "<option value=".$i.">".$row_storage['storage']."</option>";
-                    $i++;
-                }
-                echo "</select> "; 
-            } 
-        ?>
-        <button type="submit" name='insert'><i class="fa fa-search"></i></button>
-        <button formaction="search.php">Back</button>
+        <select name="status" id="status">
+                <option disabled selected value> -- Select an Option -- </option>
+                <option value="working">Working</option>
+                <option value="underservice">Under Service</option>
+                <option value="notworking">Not Working</option>
+            </select>
+            <button type="submit" name='insert'><i class="fa fa-search"></i></button>
+            <button formaction="search.php">Back</button>
+        </form><br>
         </form><br>
         <?php
         if (isset($_POST['insert'])) {
-            if($_POST['ram']=='none'){
-                $ram='%%';
-            }else{
-            $ram=$ram_arr[$_POST['ram']];
-            }
-            if($_POST['processor']=='none'){
-                $processor='%%';
-            }else{    
-                $processor=$process_arr[$_POST['processor']];
-            }            
-            if($_POST['storage']=='none'){
-                $storage='%%';
-            }else{    
-                $storage=$storage_arr[$_POST['storage']];
-            }            
-            if($_POST['brand']=='none'){
-                $brand='%%';
-            }else{    
-                $brand=$brand_arr[$_POST['brand']];
-            } 
-            $sql="SELECT * FROM comp2 WHERE ram LIKE '$ram' and processor like '$processor' and storage like '$storage' and brand_name like '$brand';";
+            $status=$_POST['status'];
+            $sql="SELECT * FROM comp WHERE status='$status';";
             $result=mysqli_query($db,$sql);
             if (mysqli_num_rows($result) > 0) {
 
-              echo "<div class='disp'>
-              <div style='font-weight:bold'>Toggle column:</div><a class='toggle-vis' data-column='0'>Brand Name</a> - <a class='toggle-vis' data-column='1'>Processor</a>  - <a class='toggle-vis' data-column='2'>GPU</a> - <a class='toggle-vis' data-column='3'>Ram</a> - <a class='toggle-vis' data-column='4'>Storage</a> - <a class='toggle-vis' data-column='5'>Lab Name</a> - <a class='toggle-vis' data-column='6'>Quantity</a>
-          </div>";
+              echo "<div>
+              <div style='font-weight:bold'>Toggle column:</div> <a class='toggle-vis' data-column='0'>Serial Number</a> - <a class='toggle-vis' data-column='1'>Brand Name</a> - <a class='toggle-vis' data-column='2'>Processor</a> - <a class='toggle-vis' data-column='3'>GPU</a> - <a class='toggle-vis' data-column='4'>Ram</a> - <a class='toggle-vis' data-column='5'>Storage</a> - <a class='toggle-vis' data-column='6'>Lab Name</a>
+        -  <a class='toggle-vis' data-column='7'>Status</a>  </div>";
                 echo "<br><table style='width:100%' id='example'>
                   <thead>
                   <tr>
+                      <th>Serial Number</th>
                       <th>Brand Name</th>
                       <th>Processor</th>
                       <th>Graphics Card</th>
                       <th>Ram</th>
                       <th>Storage</th>
                       <th>Lab Name</th>
-                      <th>Quantity</th> 
+                      <th>Status</th> 
                   </tr>
                   </thead><tbody>";
                 while ($row = mysqli_fetch_assoc($result)) {
 
-                    echo "<tr><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>". $row["graphics_card"] . "</td><td>"
-                        . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row["lab_name"] . "</td><td>" . $row['quantity'] . "</td></tr>";
+                    echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>". $row["graphics_card"] . "</td><td>"
+                        . $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row["lab_name"] . "</td><td>" . $row['status'] . "</td></tr>";
                 }
                 echo "</tbody></table><br>";
                 echo "<br>

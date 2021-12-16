@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Table with database</title>
-    <link rel="stylesheet" href="disp.css">
+    <link rel="stylesheet" media='screen' href="disp.css">
+    <link rel="stylesheet" media="print" href="print.css">
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         function toggle() {
@@ -109,7 +109,6 @@
         }
     </style>
 </head>
-
 <body>
     <ul style="display: flex; list-style: none;">
         <li><img src="logo1.png" alt="Logo" width="100" height="100" style="border-radius: 5px;">
@@ -237,7 +236,7 @@
             font-size: 17px;
             border: 1px ;
             border-radius: 5px;
-            border-left: none;'>Toggle View All</button>";
+            border-left: none;'>Toggle View All System</button>";
             $sql_all = "SELECT * FROM comp WHERE lab_name='$lab_name';";
             $result_all = mysqli_query($db, $sql_all);
             if (mysqli_num_rows($result_all) > 0) {
@@ -250,11 +249,12 @@
                       <th>GPU</th>
                       <th>Ram</th>
                       <th>Storage</th>
+                      <th>Status</th>
                   </tr>";
                 while ($row = mysqli_fetch_assoc($result_all)) {
 
-                    echo "<tr><td>" . $row["serial_sno"] . "</td><td>". $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>" .$row['graphics_card'] . "</td><td>" . 
-                         $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>";
+                    echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>" . $row['graphics_card'] . "</td><td>" . 
+                    $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row['status'];
                 }
                 echo "</table>
                 <br>
@@ -269,9 +269,8 @@
             } else {
                 echo mysqli_error($db);
             }
-           echo"<button onclick='setTimeout(function(){
-                    window.print();
-                }, 3000)' style='width: 15%; padding: 10px; background: black;
+           echo"<button onclick='
+                    window.print()'; style='width: 15%; padding: 10px; background: black;
             color: white;
             font-size: 17px;
             border: 1px ;
@@ -338,5 +337,4 @@
         }
     </script>
 </body>
-
 </html>

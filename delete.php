@@ -64,7 +64,7 @@
         <!-- The form -->
         <form class="example" action="" method="post">
             <input type="text" placeholder="Serial Number To Delete" name="serial" required>
-            <button type="submit" name='insert'><i class="fa fa-search"></i></button>
+            <button type="submit" name='insert'>Delete</button>
             <button onclick="window.location.href='dash.php'">Back</button>
         </form><br>
         <?php

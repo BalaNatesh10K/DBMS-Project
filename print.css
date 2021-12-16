@@ -1,0 +1,18 @@
+body,h1{
+    color: black;
+    font-family: "Poppins", sans-serif;
+}
+
+button,input,select,.disp{
+    display: none;
+
+}
+table,th,td{
+    text-align: center;
+    border: 1px solid black; 
+    border-collapse: collapse; 
+}
+table{
+    size: 100%;
+}
+
