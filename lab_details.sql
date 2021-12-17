@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 05:29 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Generation Time: Dec 17, 2021 at 02:06 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -890,6 +890,24 @@ INSERT INTO `hard_lab` (`s.no`, `name`, `source`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `laboratory_invoice`
+--
+
+CREATE TABLE `laboratory_invoice` (
+  `laboratory_name` varchar(32) NOT NULL,
+  `invoice_link` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `laboratory_invoice`
+--
+
+INSERT INTO `laboratory_invoice` (`laboratory_name`, `invoice_link`) VALUES
+('Programming Laboratory-I', 'https://dwdqz3611m4qq.cloudfront.net/templates/Freelancer-Invoice-Template2-DB.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mr_lab`
 --
 
@@ -1079,7 +1097,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `password`, `name`) VALUES
-('user', 'user', 'user');
+('user', 'user', 'user'),
+('testuser', 'password', 'Test_user');
 
 -- --------------------------------------------------------
 
