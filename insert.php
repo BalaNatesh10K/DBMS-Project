@@ -126,24 +126,34 @@
     </ul>
     <center>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+            <h1>Enter Details</h1>
         <!-- The form -->
         <form class="example" action="" method="post">
-       <center><input type='number' name='serialno' placeholder="Serial NO." required></center><br>
+        <center><input type="text" id="fid" class="fadeIn second" name="sno" placeholder="Serial No" required></center><br>
        <center><input type='text' name='brandname'placeholder="Brand Name" required></center><br>
        <center><input type='text' name='processor'placeholder="Processor" required></center><br>
        <center><input type='text' name='ram' placeholder="Ram" required></center><br>
        <center><input type='text' name='storage' placeholder="Storage" required></center><br>
-       <center><input type='text' name='labname' placeholder="Lab Name" required></center><br>
        <center><input type='text' name='graphicscard' placeholder="GPU" required></center><br>
-       <select name="status" id="status" style='background-color:white;color:black;'>
-                <option disabled selected value> -- Select an Option -- </option>
+       <select name="lab" id="lab" style='background-color:#f6f6f6;color:black;'>
+                <option disabled selected value> -- Select Lab -- </option>
+                <option value="Programming Laboratory-I">Programming Laboratory-I</option>
+                <option value="Programming Laboratory-II">Programming Laboratory-II</option>
+                <option value="Hardware Laboratory">Hardware Laboratory</option>
+                <option value="Sensor Network Laboratory">Sensor Network Laboratory</option>
+                <option value="Project Laboratory">Project Laboratory</option>
+                <option value="Data Analytics Laboratory">Data Analytics Laboratory</option>
+                <option value="PG Laboratory">PG Laboratory</option>
+                <option value="Media Research Lab">Media Research Lab</option>
+            </select><br> <br>
+       <select name="status" id="status" style='background-color:#f6f6f6;color:black;'>
+                <option disabled selected value> -- Select Status -- </option>
                 <option value="working">Working</option>
                 <option value="underservice">Under Service</option>
                 <option value="notworking">Not Working</option>
             </select><br><br>
                <button type="submit" name='insert'>Insert</button>
-               <a href='dash.php'>Back</a>
+               <button name='back' onclick="window.location.href='dash.php'">Back</button>
         </form><br>
     </center>
 </body>
