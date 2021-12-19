@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Table with database</title>
     <link rel="stylesheet" media='screen' href="disp.css">
@@ -34,6 +35,16 @@
         }
     </script>
     <style>
+        a {
+            color: black;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
         * {
             box-sizing: border-box;
         }
@@ -108,48 +119,60 @@
             padding-bottom: 10px;
         }
 
-        body {font-family: Arial, Helvetica, sans-serif;}
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
         /* The Modal (background) */
         .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
         }
 
         /* Modal Content */
         .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
         }
 
         /* The Close Button */
         .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
         }
 
         .close:hover,
         .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
+
 <body>
     <ul style="display: flex; list-style: none;">
         <li><img src="logo1.png" alt="Logo" width="100" height="100" style="border-radius: 5px;">
@@ -166,17 +189,22 @@
 
         <!-- The form -->
         <form class="example" action="" method="post">
-            <select name="lab" id="lab">
-                <option disabled selected value> -- Select an Option -- </option>
-                <option value="Programming Laboratory-I">Programming Laboratory-I</option>
-                <option value="Programming Laboratory-II">Programming Laboratory-II</option>
-                <option value="Hardware Laboratory">Hardware Laboratory</option>
-                <option value="Sensor Network Laboratory">Sensor Network Laboratory</option>
-                <option value="Project Laboratory">Project Laboratory</option>
-                <option value="Data Analytics Laboratory">Data Analytics Laboratory</option>
-                <option value="PG Laboratory">PG Laboratory</option>
-                <option value="Media Research Lab">Media Research Lab</option>
-            </select>
+        <?php
+				require_once "config.php";
+				$sql="SELECT distinct(lab_name) as lab from comp;";    
+				$result=mysqli_query($db,$sql);   
+				if(mysqli_num_rows($result)>0){
+                $i=0;
+                echo "<select placeholder='Lab Name' name='lab' class='tb'>";
+                echo "<option selected value='none'>Lab Name</option>";
+                while($row=mysqli_fetch_assoc($result)){
+                    $i=0;
+					echo "<option value='".$row['lab']."'>".$row['lab']."</option>";
+                    $i++;
+                }
+                	echo "</select> "; 
+            	}
+				?>	
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
             <button formaction="search.php">Back</button>
 
@@ -206,32 +234,43 @@
                       <th>Quantity</th> 
                   </tr>";
 
-                $lab_ivoice_link = mysqli_query($db, "SELECT invoice_link FROM laboratory_invoice WHERE laboratory_name = '$lab_name'");
-                if($r = mysqli_fetch_assoc($lab_ivoice_link)){
-                echo "
-                    <button id=\"myBtn\" style='width: 10%; padding: 10px; background: black;
+                $lab_ivoice_link = mysqli_query($db, "select img_path from invoice b join image_table a on b.img_id=a.img_id where lab_name = '$lab_name';");
+
+                if (mysqli_num_rows($lab_ivoice_link) > 0) {
+                    echo "
+                    <button id=\"myBtn\" class = 'modal-button' style='width: 10%; padding: 10px; background: black;
                     color: white;
                     font-size: 17px;
                     border: 1px ;
                     border-radius: 5px;
-                    border-left: none;'>View Invoice</button><br><br>
+                    border-left: none;'>View Invoice</button><br><br>";
+                }
+
+                echo "
                     <div id=\"myModal\" class=\"modal\">
                         <div class=\"modal-content\">
-                        <span class=\"close\">&times;</span>
-                        <img src = '" . $r['invoice_link'] . "' width=512 height=512/>
-                        <a href = '". $r['invoice_link'] . "' download> Download Invoice</a>
-                        </div>
+                            <span class=\"close\">&times;</span>";
+
+                while(($link = mysqli_fetch_assoc($lab_ivoice_link))) {
+                    echo "
+                        <img src = '" . $link['img_path'] . "' style='object-fit:contain;max-width:100%;width:1000px;'/><br>
+                        <a href = '" . $link['img_path'] . "' download>Download Invoice</a><br/><br/>
+                    ";
+                }
+
+                echo "
+                        </div
                     </div>
-                ";}
+                ";
                 while ($row = mysqli_fetch_assoc($result_comp)) {
 
-                    echo "<tr><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>" .$row['graphics_card'] . "</td><td>" . 
-                         $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row['quantity'] . "</td></tr>";
+                    echo "<tr><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>" . $row['graphics_card'] . "</td><td>" .
+                        $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row['quantity'] . "</td></tr>";
                 }
                 echo "</table>";
             } else {
                 echo mysqli_error($db);
-            } 
+            }
             echo "<br>
             <button onclick=\"ExportToExcel1('xlsx')\" style='width: 15%; padding: 10px; background: black;
             color: white;
@@ -239,7 +278,7 @@
             border: 1px ;
             border-radius: 5px;
             border-left: none;'>Export table to excel</button> <br></div>";
-             if (mysqli_num_rows($result_device) > 0) {
+            if (mysqli_num_rows($result_device) > 0) {
 
                 echo "<div id='all3'>
                 <br><table id='tbl2' style='width:80%'>
@@ -256,8 +295,8 @@
             } else {
                 echo mysqli_error($db);
             }
-        
-        echo"<br>
+
+            echo "<br>
         <button onclick=\"ExportToExcel2('xlsx')\" style='width: 15%; padding: 10px; background: black;
         color: white;
         font-size: 17px;
@@ -265,8 +304,8 @@
         border-radius: 5px;
         border-left: none;'>Export table to excel</button>
         <br></div>";
-        
-            if(mysqli_num_rows($result_soft) > 0){
+
+            if (mysqli_num_rows($result_soft) > 0) {
                 echo "<div id='all2'>
                 <br><table id='tbl3'style='width:80%'>
                   <tr>
@@ -278,7 +317,7 @@
                     echo "<tr><td>" . $row["name"] . "</td><td>" . $row['source'] . "</td></tr>";
                 }
                 echo "</table><br>";
-            }else {
+            } else {
                 echo mysqli_error($db);
             }
             echo "<br>
@@ -313,8 +352,8 @@
                   </tr>";
                 while ($row = mysqli_fetch_assoc($result_all)) {
 
-                    echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>" . $row['graphics_card'] . "</td><td>" . 
-                    $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row['status'];
+                    echo "<tr><td>" . $row["serial_sno"] . "</td><td>" . $row["brand_name"] . "</td><td>" . $row["processor"] . "</td><td>" . $row['graphics_card'] . "</td><td>" .
+                        $row["ram"] . "</td><td>" . $row['storage'] . "</td><td>" . $row['status'];
                 }
                 echo "</table>
                 <br>
@@ -329,7 +368,7 @@
             } else {
                 echo mysqli_error($db);
             }
-           echo"<button onclick='
+            echo "<button onclick='
                     window.print()'; style='width: 15%; padding: 10px; background: black;
             color: white;
             font-size: 17px;
@@ -338,7 +377,7 @@
             border-left: none;'>Print</button>
             </center><br>";
         }
-    ?>
+        ?>
     </center>
     <script>
         function ExportToExcel1(type, fn, dl) {
@@ -382,6 +421,7 @@
                 }) :
                 XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
         }
+
         function ExportToExcel4(type, fn, dl) {
             var elt = document.getElementById('tbl4');
             var wb = XLSX.utils.table_to_book(elt, {
@@ -396,7 +436,7 @@
                 XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
         }
 
-        // Modal W3Schools
+        /*// Modal W3Schools
         var modal = document.getElementById("myModal");
 
         // Get the button that opens the modal
@@ -420,7 +460,25 @@
         if (event.target == modal) {
             modal.style.display = "none";
         }
+        }*/
+
+        //  Altered modal
+        var modal = document.getElementById('myModal');
+        var buttons = document.getElementsByClassName('modal-button');
+        var modal_close = document.getElementsByClassName('close')[0];
+        Array.prototype.slice.call(buttons).forEach(button => {
+            button.onclick = () => {
+                modal.style.display = 'block';
+            }
+        });
+
+        modal_close.onclick = function() {
+            modal.style.display = 'none';
+        }
+        window.onclick = function() {
+            if (event.target == modal) modal.style.display = 'none';
         }
     </script>
 </body>
+
 </html>

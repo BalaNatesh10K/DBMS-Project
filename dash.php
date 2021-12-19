@@ -64,7 +64,7 @@
     </li>
     </ul>
     <div class="wrapper fadeInDown">
-        <div id="formContent" style="height: 515px;">
+        <div id="formContent" style="height: 600px;">
             <!-- Tabs Titles -->
             <br><img src="https://logodix.com/logo/1070633.png" alt="Logo" width="70" height="70"><br>
             <h2 class="active"> Welcome <?php echo $_SESSION['username'];?></h2>
@@ -73,7 +73,8 @@
             <button class="button" type="submit" formaction="search.php"><span>Search</span></button>
             <button class="button" type="submit" formaction="insert.php"><span>Insert</span></button>
             <button class="button" type="submit" formaction="update.php"><span>Update</span></button>
-            <button class="button" type="submit" formaction="delete.php"> <span>Delete</span></button><br>
+            <button class="button" type="submit" formaction="delete.php"> <span>Delete</span></button>
+            <button class="button" type="submit" formaction="upload_invoice.php"><span>Upload Invoice</span></button><br>
             </form><br>
         <a href="logout.php">Log Out</a>
         </div>

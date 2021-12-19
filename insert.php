@@ -135,17 +135,7 @@
        <center><input type='text' name='ram' placeholder="Ram" required></center><br>
        <center><input type='text' name='storage' placeholder="Storage" required></center><br>
        <center><input type='text' name='graphicscard' placeholder="GPU" required></center><br>
-       <select name="lab" id="lab" style='background-color:#f6f6f6;color:black;'>
-                <option disabled selected value> -- Select Lab -- </option>
-                <option value="Programming Laboratory-I">Programming Laboratory-I</option>
-                <option value="Programming Laboratory-II">Programming Laboratory-II</option>
-                <option value="Hardware Laboratory">Hardware Laboratory</option>
-                <option value="Sensor Network Laboratory">Sensor Network Laboratory</option>
-                <option value="Project Laboratory">Project Laboratory</option>
-                <option value="Data Analytics Laboratory">Data Analytics Laboratory</option>
-                <option value="PG Laboratory">PG Laboratory</option>
-                <option value="Media Research Lab">Media Research Lab</option>
-            </select><br> <br>
+       <center><input type='text' name='lab' placeholder="Lab Name" required></center><br>
        <select name="status" id="status" style='background-color:#f6f6f6;color:black;'>
                 <option disabled selected value> -- Select Status -- </option>
                 <option value="working">Working</option>
@@ -159,12 +149,12 @@
 </body>
 <?php
     if(isset($_POST['insert'])){
-        $serial=$_POST['serialno'];
+        $serial=$_POST['sno'];
         $brand=$_POST['brandname'];
         $processor=$_POST['processor'];
         $ram=$_POST['ram'];
         $storage=$_POST['storage'];
-        $lab=$_POST['labname'];
+        $lab=$_POST['lab'];
         $gpu=$_POST['graphicscard'];
         $status=$_POST['status'];
         $check="SELECT * FROM comp where serial_sno='$serial';";
@@ -172,7 +162,7 @@
         if(mysqli_num_rows($check_result)>0){
             echo "Serial Number already exists";
         }else{
-            $insert="INSERT INTO comp VALUES($serial,'$brand','$processor','$ram','$storage','$lab','$gpu','$status');";
+            $insert="INSERT INTO comp VALUES('$serial','$brand','$processor','$ram','$storage','$lab','$gpu','$status');";
             $result=mysqli_query($db,$insert);
             if(mysqli_affected_rows($db)!=1){
                 echo mysqli_error($db);

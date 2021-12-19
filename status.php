@@ -17,7 +17,8 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="disp.css">
+    <link rel="stylesheet" media='screen' href="disp.css">
+    <link rel="stylesheet" media="print" href="print.css">
     <style>
         a{
             color:black;
@@ -134,7 +135,7 @@
             $result=mysqli_query($db,$sql);
             if (mysqli_num_rows($result) > 0) {
 
-              echo "<div>
+              echo "<div class='disp'>
               <div style='font-weight:bold'>Toggle column:</div> <a class='toggle-vis' data-column='0'>Serial Number</a> - <a class='toggle-vis' data-column='1'>Brand Name</a> - <a class='toggle-vis' data-column='2'>Processor</a> - <a class='toggle-vis' data-column='3'>GPU</a> - <a class='toggle-vis' data-column='4'>Ram</a> - <a class='toggle-vis' data-column='5'>Storage</a> - <a class='toggle-vis' data-column='6'>Lab Name</a>
         -  <a class='toggle-vis' data-column='7'>Status</a>  </div>";
                 echo "<br><table style='width:100%' id='example'>
