@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2021 at 05:29 PM
+-- Generation Time: Dec 20, 2021 at 08:16 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -890,6 +890,46 @@ INSERT INTO `hard_lab` (`s.no`, `name`, `source`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `image_table`
+--
+
+CREATE TABLE `image_table` (
+  `img_id` int(11) NOT NULL,
+  `img_path` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `image_table`
+--
+
+INSERT INTO `image_table` (`img_id`, `img_path`) VALUES
+(1, 'photo/i7 Desktop Computer 150 Nos_page-0002.jpg'),
+(2, 'photo/i7 Desktop Computer 150 Nos_page-0001.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `lab_name` varchar(100) DEFAULT NULL,
+  `img_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`lab_name`, `img_id`) VALUES
+('Programming Laboratory-II', 1),
+('Data Analytics Laboratory', 2),
+('Hardware Laboratory', 2),
+('Project Laboratory', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mr_lab`
 --
 
@@ -1079,7 +1119,9 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `password`, `name`) VALUES
-('user', 'user', 'user');
+('user', 'user', 'user'),
+('testuser', 'password', 'Test_user'),
+('420', 'zakir', 'zaaakir');
 
 -- --------------------------------------------------------
 
@@ -1133,6 +1175,28 @@ ALTER TABLE `comp_det2`
   ADD KEY `type_id` (`type_id`);
 
 --
+-- Indexes for table `image_table`
+--
+ALTER TABLE `image_table`
+  ADD PRIMARY KEY (`img_id`);
+
+--
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD UNIQUE KEY `img_id` (`img_id`,`lab_name`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `image_table`
+--
+ALTER TABLE `image_table`
+  MODIFY `img_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -1141,6 +1205,12 @@ ALTER TABLE `comp_det2`
 --
 ALTER TABLE `comp_det2`
   ADD CONSTRAINT `comp_det2_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `comp_det` (`type_id`);
+
+--
+-- Constraints for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD CONSTRAINT `FK_TABLE2_COLUMN` FOREIGN KEY (`img_id`) REFERENCES `image_table` (`img_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

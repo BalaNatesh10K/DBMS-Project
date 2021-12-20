@@ -1,16 +1,5 @@
 <!DOCTYPE html>
 <html>
-<?php
-    require_once "config.php";
-    $serial=$_POST['serial'];
-    $check="SELECT * FROM comp where serial_sno='$serial';";
-    $result=mysqli_query($db,$check);
-    if(mysqli_num_rows($result)!=1){
-        echo "No Such Serial Number";
-    }else{
-        $row=mysqli_fetch_assoc($result);   
-    }
-?>
 <head>
     <title>Table with database</title>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -110,6 +99,22 @@
   background-color: white;
   font-size: 16px;
 }
+ button {
+            width: 5%;
+            padding: 10px;
+            background: black;
+            color: white;
+            font-size: 17px;
+            border: 1px;
+            border-radius: 5px;
+            border-left: none;
+            /* Prevent double borders */
+            cursor: pointer;
+            float: none;
+        }
+         button:hover {
+            background: black;
+        }
 
     </style>
 </head>
@@ -127,25 +132,21 @@
     </ul>
     <center>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <h1>Enter Details</h1>
+        
         <!-- The form -->
-        <form class="example" action="" method="post">
-        <div class = 'row'><div style = 'flex: 1'>SerialNO : </div><input type='text' name='serial' value ="<?php echo $row['serial_sno'];?>" required readonly></div><br>
-        <div class = 'row'><div style = 'flex: 1;'>Brand Name : </div><input type='text' name='brandname' value ="<?php echo $row['brand_name'];?>" required></div><br>
-        <div class = 'row'><div style = 'flex: 1;'>Processor : </div><input type='text' name='processor'value ="<?php echo $row['processor'];?>" required></div><br>
-        <div class = 'row'><div style = 'flex: 1;'>Ram : </div><input type='text' name='ram' value ="<?php echo $row['ram'];?>" required></div><br>
-        <div class = 'row'><div style = 'flex: 1;'>Storage : </div><input type='text' name='storage' value ="<?php echo $row['storage'];?>" required></div><br>
-        <div class = 'row'><div style = 'flex: 1;'>GPU : </div><input type='text' name='graphicscard' value ="<?php echo $row['graphics_card'];?>" required></div><br>
-        <div class = 'row'><div style = 'flex: 1;'>Lab Name : </div><input type='text' name='lab' value ="<?php echo $row['lab_name'];?>" required></div><br>
-       <select name="status" id="status" style='background-color:#f6f6f6;color:black;'>
-                <option disabled selected value> -- Select Status -- </option>
-                <option value="working">Working</option>
-                <option value="underservice">Under Service</option>
-                <option value="notworking">Not Working</option>
-            </select><br><br>
-               <button type="submit" name='update'>Update</button>
-               <button name='back' onclick="window.location.href='dash.php'">Back</button>
-        </form><br>
+<?php
+    require_once "config.php";
+    $serial=$_POST['serial'];
+    $check="SELECT * FROM comp where serial_sno='$serial';";
+    $result=mysqli_query($db,$check);
+    if(mysqli_num_rows($result)!=1){
+        echo "<div style='font-weight:bold;font-size:20px;'>No Such Serial Number</div>";
+    }else{
+        $row=mysqli_fetch_assoc($result);   
+        include "form.php";
+    }
+?>
+    <button name='back' onclick="window.location.href='dash.php'" >Back</button>
     </center>
 </body>
 <?php
