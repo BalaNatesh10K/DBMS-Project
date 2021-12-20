@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
-
+<?php
+    require_once "config.php";
+    $serial=$_POST['serial'];
+    $check="SELECT * FROM comp where serial_sno='$serial';";
+    $result=mysqli_query($db,$check);
+    if(mysqli_num_rows($result)!=1){
+        echo "No Such Serial Number";
+    }else{
+        $row=mysqli_fetch_assoc($result);   
+    }
+?>
 <head>
     <title>Table with database</title>
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
@@ -9,6 +19,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="disp.css">
     <style>
+        
          a{
             color:black;
             font-weight: bold;
@@ -119,28 +130,28 @@
             <h1>Enter Details</h1>
         <!-- The form -->
         <form class="example" action="" method="post">
-        <center><input type="text" id="fid" class="fadeIn second" name="sno" placeholder="Serial No" required></center><br>
-       <center><input type='text' name='brandname'placeholder="Brand Name" required></center><br>
-       <center><input type='text' name='processor'placeholder="Processor" required></center><br>
-       <center><input type='text' name='ram' placeholder="Ram" required></center><br>
-       <center><input type='text' name='storage' placeholder="Storage" required></center><br>
-       <center><input type='text' name='graphicscard' placeholder="GPU" required></center><br>
-       <center><input type='text' name='lab' placeholder="Lab Name" required></center><br>
+        <div class = 'row'><div style = 'flex: 1'>SerialNO : </div><input type='text' name='serial' value ="<?php echo $row['serial_sno'];?>" required readonly></div><br>
+        <div class = 'row'><div style = 'flex: 1;'>Brand Name : </div><input type='text' name='brandname' value ="<?php echo $row['brand_name'];?>" required></div><br>
+        <div class = 'row'><div style = 'flex: 1;'>Processor : </div><input type='text' name='processor'value ="<?php echo $row['processor'];?>" required></div><br>
+        <div class = 'row'><div style = 'flex: 1;'>Ram : </div><input type='text' name='ram' value ="<?php echo $row['ram'];?>" required></div><br>
+        <div class = 'row'><div style = 'flex: 1;'>Storage : </div><input type='text' name='storage' value ="<?php echo $row['storage'];?>" required></div><br>
+        <div class = 'row'><div style = 'flex: 1;'>GPU : </div><input type='text' name='graphicscard' value ="<?php echo $row['graphics_card'];?>" required></div><br>
+        <div class = 'row'><div style = 'flex: 1;'>Lab Name : </div><input type='text' name='lab' value ="<?php echo $row['lab_name'];?>" required></div><br>
        <select name="status" id="status" style='background-color:#f6f6f6;color:black;'>
                 <option disabled selected value> -- Select Status -- </option>
                 <option value="working">Working</option>
                 <option value="underservice">Under Service</option>
                 <option value="notworking">Not Working</option>
             </select><br><br>
-               <button type="submit" name='insert'>Insert</button>
+               <button type="submit" name='update'>Update</button>
                <button name='back' onclick="window.location.href='dash.php'">Back</button>
         </form><br>
     </center>
 </body>
 <?php
-    if(isset($_POST['insert'])){
-        require_once "config.php";
-        $serial=$_POST['sno'];
+    
+    if(isset($_POST['update'])){
+        $serial=$_POST['serial'];
         $brand=$_POST['brandname'];
         $processor=$_POST['processor'];
         $ram=$_POST['ram'];
@@ -148,17 +159,19 @@
         $lab=$_POST['lab'];
         $gpu=$_POST['graphicscard'];
         $status=$_POST['status'];
-        $check="SELECT * FROM comp where serial_sno='$serial';";
-        $check_result=mysqli_query($db,$check);
-        if(mysqli_num_rows($check_result)>0){
-            echo "Serial Number already exists";
-        }else{
+   
+        $delete="DELETE FROM comp where serial_sno='$serial';";
+        $delete_result=mysqli_query($db,$delete);
+        
+        if(mysqli_affected_rows($db)==1){
+        
             $insert="INSERT INTO comp VALUES('$serial','$brand','$processor','$ram','$storage','$lab','$gpu','$status');";
-            $result=mysqli_query($db,$insert);
-            if(mysqli_affected_rows($db)!=1){
-                echo mysqli_error($db);
-            }
+            $insert_result=mysqli_query($db,$insert);
+        if(mysqli_affected_rows($db)!=1){
+            echo mysqli_error($db);
+            
         }
+    }
         
     }
 ?>

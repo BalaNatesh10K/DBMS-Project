@@ -113,3 +113,23 @@ table tr:last-child td:last-child {
     clear: both;
     display: table;
   }
+  
+  .row{
+      font-weight: bold;
+      display: flex;
+      margin-right: 38.6666vw;
+  }
+
+  .row * {
+    flex: 1;
+  }
+
+  .row div {
+      text-align: right;
+      margin-right: 16px;
+  }
+
+  .row input {
+      flex: 0.50;
+      width: 20vw;
+  }
