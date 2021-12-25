@@ -77,7 +77,7 @@ if (isset($_POST['insert'])) {
         <form class="example" action="" method="post">
             <input type="text" placeholder="Serial Number" name="serial" required>
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
-            <button onclick="window.location.href='search.php'">Back</button>
+            <button onclick="window.location.href='dash.php'">Back</button>
         </form><br>
         <?php if (isset($_POST['insert'])) {
             if (mysqli_num_rows($result) > 0) {

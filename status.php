@@ -125,7 +125,7 @@
                 <option value="notworking">Not Working</option>
             </select>
             <button type="submit" name='insert'><i class="fa fa-search"></i></button>
-            <button formaction="search.php">Back</button>
+            <button formaction="dash.php">Back</button>
         </form><br>
         </form><br>
         <?php

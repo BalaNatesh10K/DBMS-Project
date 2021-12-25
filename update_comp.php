@@ -168,6 +168,9 @@
         
             $insert="INSERT INTO comp VALUES('$serial','$brand','$processor','$ram','$storage','$lab','$gpu','$status');";
             $insert_result=mysqli_query($db,$insert);
+            echo '<script language="javascript">';
+            echo 'alert("Updated successfully")';
+            echo '</script>';
         if(mysqli_affected_rows($db)!=1){
             echo mysqli_error($db);
             
